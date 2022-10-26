@@ -21,6 +21,15 @@ public class SendEmail {
         //String fromEmail = "sejeso.oreneile@gmail.com";
         String toEmail = "oreneile.sejeso@umuzi.org";
 
+        ProcessBuilder pb = new ProcessBuilder("src/smtp_secrets.sh", "myArg1", "myArg2");
+        Process p = pb.start();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line = null;
+        while ((line = reader.readLine()) != null)
+        {
+            System.out.println(line);
+        }
+
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
