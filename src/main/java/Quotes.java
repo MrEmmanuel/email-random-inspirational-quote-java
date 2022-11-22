@@ -5,17 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Quotes {
-    private String author;
-    private String quote;
     private String path;
     private List<String> quotes;
 
     public Quotes(String filePath) {
         this.path = filePath;
-    }
-    public Quotes(String author, String quote) {
-        this.author = author;
-        this.quote = quote;
     }
 
     public void readQuotesFromFile() throws FileNotFoundException {
