@@ -33,11 +33,4 @@ public class Quotes {
     public List<String> getQuotes() {
         return quotes;
     }
-
-    public String getAuthor() {
-        return author;
-    }
-    public String getQuote() {
-        return quote;
-    }
 }
