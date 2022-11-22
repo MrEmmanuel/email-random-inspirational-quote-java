@@ -1,22 +1,24 @@
-import javax.mail.Authenticator;
-import javax.mail.Session;
+import javax.mail.*;
+
+import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
+
 
 public class MainClass {
-    public static void main(String[] args){
-        //MessageTransport transport = new MessageTransport();
+    public static void main(String[] args) throws FileNotFoundException, MessagingException {
+        Random random = new Random();
         SendEmail email = new SendEmail();
-
         Map<String, String> env = System.getenv();
         String login = env.get("SMTP_LOGIN");
         String server = env.get("SMTP_SERVER");
         String port = env.get("SMTP_PORT");
         String password = env.get("SMTP_PASSWORD");
 
-        Properties prop = setProperties(server, port, login, password);
-        Session session = Session.getInstance(prop, new Authent icator() {
-            @Override
+        Properties properties = CreateMessage.setProperties(server, port, login, password);
+        Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(login, password);
             }
@@ -24,48 +26,17 @@ public class MainClass {
         session.setDebug(true);
 
         Quotes quotes = new Quotes("quotes.txt");
-        quotes.readQuotesFile();
-        List<String> theQuotes = quotes.getQuotes();
-        String quote = theQuotes.get(0);
+        quotes.readQuotesFromFile();
+        List<String> newQuotes = quotes.getQuotes();
+        int number = random.nextInt(10);
+        String quote = newQuotes.get(number);
 
         String to = args[0];
         String subject = "Random Inspirational Quotes.";
-        String[] info = new String[]{login, to, subject, quote};
-        Message message = createMessage(session, info);
+        String[] information = new String[]{login, to, subject, quote};
+        Message message = CreateMessage.createMessage(session, information);
 
-        RandomEmail randomEmail = new RandomEmail(emailEngine);
+        EmailRandomInspirationalQuote randomEmail = new EmailRandomInspirationalQuote(email);
         randomEmail.sendEmail(message);
-    }
-
-
-    private static Message createMessage(Session session, String[] info) throws MessagingException {
-        Message message = new MimeMessage(session);
-
-        message.setFrom(new InternetAddress(info[0]));
-        message.setRecipients(
-                Message.RecipientType.TO, InternetAddress.parse(info[1]));
-        message.setSubject(info[2]);
-        String msg = info[3];
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
-
-        return message;
-    }
-
-    public static Properties setProperties(String server, String port, String login, String password){
-        Properties prop = System.getProperties();
-        prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", server);
-        prop.put("mail.smtp.port", port);
-        prop.put("mail.smtp.user", login);
-        prop.put("mail.smtp.password", password);
-        prop.put("mail.smtp.ssl.trust", server);
-        return prop;
-    }
-
     }
 }
