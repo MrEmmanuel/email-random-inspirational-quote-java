@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Quotes {
-    private String path;
+    private final String path;
     private List<String> quotes;
 
     public Quotes(String filePath) {
