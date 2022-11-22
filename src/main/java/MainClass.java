@@ -28,7 +28,7 @@ public class MainClass {
         Quotes quotes = new Quotes("quotes.txt");
         quotes.readQuotesFromFile();
         List<String> newQuotes = quotes.getQuotes();
-        int number = random.nextInt(10);
+        int number = random.nextInt(11);
         String quote = newQuotes.get(number);
 
         String to = args[0];
