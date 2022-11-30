@@ -4,7 +4,7 @@ import java.util.Map;
 
 
 
-public class MainClass {
+public class Main {
     public static void main(String[] args) throws FileNotFoundException, MessagingException {
 
         SendEmail email = new SendEmail();
@@ -18,7 +18,8 @@ public class MainClass {
         String emailAddress = args[0];
 
         Message message = session.createSession(server, port, login, password, emailAddress);
-        EmailRandomInspirationalQuote randomEmail = new EmailRandomInspirationalQuote(email);
-        randomEmail.sendEmail(message);
+        //EmailRandomInspirationalQuote randomEmail = new EmailRandomInspirationalQuote(email);
+        //randomEmail.sendEmail(message);
+        email.sendEmail(message);
     }
 }

@@ -21,8 +21,7 @@ public class EmailRandomInspirationQuoteTest {
             }
         });
         Message message = new MimeMessage(session);
-        EmailRandomInspirationalQuote randomEmail = new EmailRandomInspirationalQuote(sendEmailMock);
-        randomEmail.sendEmail(message);
+        sendEmailMock.sendEmail(message);
         verify(sendEmailMock, times(1)).sendEmail(message);
     }
 

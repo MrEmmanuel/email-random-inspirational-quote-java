@@ -3,7 +3,7 @@ plugins {
 }
 apply plugin : "java"
 ext {
-    javaMainClass = "src/main/java/MainClass.java"
+    javaMainClass = "src/main/java/Main.java"
 }
 
 application {
