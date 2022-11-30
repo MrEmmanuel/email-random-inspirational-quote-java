@@ -7,12 +7,12 @@ import java.util.Properties;
 
 import static org.mockito.Mockito.*;
 
-public class EmailRandomInspirationQuoteTest {
+public class EmailTest {
 
     @Test
     @DisplayName("This should test if an email is sent at least once")
     void sendEmailTest() throws MessagingException {
-        SendEmail sendEmailMock = mock(SendEmail.class);
+        Email sendEmailMock = mock(Email.class);
         Properties propertiesMock = mock(Properties.class);
         Session session = Session.getInstance(propertiesMock, new Authenticator() {
             @Override

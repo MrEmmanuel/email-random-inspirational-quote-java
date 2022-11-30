@@ -7,7 +7,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, MessagingException {
 
-        SendEmail email = new SendEmail();
+        Email email = new Email();
         CreateSession session = new CreateSession();
 
         Map<String, String> env = System.getenv();
@@ -18,8 +18,6 @@ public class Main {
         String emailAddress = args[0];
 
         Message message = session.createSession(server, port, login, password, emailAddress);
-        //EmailRandomInspirationalQuote randomEmail = new EmailRandomInspirationalQuote(email);
-        //randomEmail.sendEmail(message);
         email.sendEmail(message);
     }
 }
