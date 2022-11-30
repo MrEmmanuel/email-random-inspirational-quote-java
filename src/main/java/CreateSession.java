@@ -8,12 +8,12 @@ public class CreateSession {
 
     Random random = new Random();
 
-    public Message createSession(String server, String port, String login, String password, String to) throws MessagingException, FileNotFoundException {
-
-        Properties properties = CreateMessage.setProperties(server, port, login, password);
+    public Message createSession(String to) throws MessagingException, FileNotFoundException {
+        Configuration conf = new Configuration();
+        Properties properties = CreateMessage.setProperties(conf.getServer(), conf.getPort(), conf.getLogin(), conf.getPassword());
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(login, password);
+                return new PasswordAuthentication(conf.getLogin(), conf.getPassword());
             }
         });
         session.setDebug(true);
@@ -24,7 +24,7 @@ public class CreateSession {
         String quote = newQuotes.get(number);
 
         String subject = "Random Inspirational Quotes.";
-        String[] information = new String[]{login, to, subject, quote};
+        String[] information = new String[]{conf.getLogin(), to, subject, quote};
         Message message = CreateMessage.createMessage(session, information);
 
         return message;
