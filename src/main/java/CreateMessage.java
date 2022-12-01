@@ -18,12 +18,7 @@ public class CreateMessage {
         message.setRecipients(
                 Message.RecipientType.TO, InternetAddress.parse(info[1]));
         message.setSubject(info[2]);
-        String msg = info[3];
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
+        message.setText(info[3]);
 
         return message;
     }
