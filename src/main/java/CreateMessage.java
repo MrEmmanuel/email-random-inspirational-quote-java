@@ -1,24 +1,33 @@
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 
 public class CreateMessage {
 
-    public static Message createMessage(Session session, String[] info) throws MessagingException {
-        Message message = new MimeMessage(session);
+    private static Random random = new Random();
 
-        message.setFrom(new InternetAddress(info[0]));
+    public static Message createMessage(Session session, String login, String emailRecipient) throws MessagingException, FileNotFoundException {
+
+        Quotes quotes = new Quotes("quotes.txt");
+        quotes.readQuotesFromFile();
+        List<String> newQuotes = quotes.getQuotes();
+        int number = random.nextInt(11);
+        String quote = newQuotes.get(number);
+        String subject = "Random Inspirational Quotes.";
+
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(login));
         message.setRecipients(
-                Message.RecipientType.TO, InternetAddress.parse(info[1]));
-        message.setSubject(info[2]);
-        message.setText(info[3]);
+                Message.RecipientType.TO, InternetAddress.parse(emailRecipient));
+        message.setSubject(subject);
+        message.setText(quote);
 
         return message;
     }
