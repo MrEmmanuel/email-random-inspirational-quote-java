@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.util.Random;
 
 
-public class CreateMessage {
+public class Content {
 
     private static Random random = new Random();
 

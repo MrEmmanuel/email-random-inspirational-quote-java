@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, MessagingException {
 
         Email email = new Email();
-        CreateSession session = new CreateSession();
+        Session session = new Session();
         
         Message message = session.createSession(args[0]);
         email.sendEmail(message);
